@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demopod
+spec:
+  containers:
+  - image: muralidharanrade/demo:web
+    name: demo-container
+    ports:
+    - containerPort: 8080
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+      preStop:
+        exec:
+          command: ["/bin/sh", "-c", "echo Stopping server > /usr/share/message1; sleep 10; sh /usr/local/tomcat/bin/catalina.sh stop"]
